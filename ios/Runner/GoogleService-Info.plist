@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBF_tn1HFg_kqKsNPQGTwiU3IYRDusB9u8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>774941537458</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.vahan</string>
+	<key>PROJECT_ID</key>
+	<string>vahan-1036f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>vahan-1036f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:774941537458:ios:7d99c21fd73d9f31d6c5ab</string>
+	<key>DATABASE_URL</key>
+	<string>https://vahan-1036f-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
