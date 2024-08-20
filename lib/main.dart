@@ -6,6 +6,7 @@ import 'package:easy_splash_screen/easy_splash_screen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: "AIzaSyBuXGyqYqpewYzRD32R5tEsjoytb_D0BPo",

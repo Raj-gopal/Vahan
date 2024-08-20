@@ -9,6 +9,9 @@ import 'package:vahan/screen/homepage.dart';
 import 'package:vahan/services/auth.dart';
 import 'package:vahan/utils/style.dart';
 
+import '../driver/screen/driverhomescreen.dart';
+import 'driversignup.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -169,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => RegistrationScreen()),
+                      MaterialPageRoute(builder: (context) => DriverRegistrationScreen()),
                     );
                   },
                   child: Row(

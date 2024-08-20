@@ -72,11 +72,14 @@ class _SearchScreenState extends State<SearchScreen> {
           builder: (context) => BookingScreen(
             startLocation: startLocation!,
             nextLocation: nextLocation!,
+            startAddress: startController.text,
+            nextAddress: nextController.text,
           ),
         ),
       );
     }
   }
+
 
 
 

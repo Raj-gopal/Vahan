@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';// This import is not used in the current code
 import 'package:latlong2/latlong.dart';
+import 'package:location/location.dart';
 import 'package:vahan/screen/pickNdrop.dart';
 import 'package:flutter_map/flutter_map.dart';
 
@@ -12,6 +13,26 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+
+  LatLng? _currentLocation;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchCurrentLocation();
+  }
+  Future<void> _fetchCurrentLocation() async {
+    try {
+      LatLng location = await LocationServices.getCurrentLocation();
+      setState(() {
+        _currentLocation = location;
+      });
+    } catch (e) {
+      print('Error fetching location: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,12 +142,27 @@ class _HomepageState extends State<Homepage> {
                   width: MediaQuery.of(context).size.width,
                   child: FlutterMap(
                     options: MapOptions(
-                      center: LatLng(37.9757, 23.7126),
+                      center:_currentLocation,
                       zoom: 12,
                     ),
                     children: [
                       TileLayer(
                         urlTemplate: 'https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94LW1hcC1kZXNpZ24iLCJhIjoiY2syeHpiaHlrMDJvODNidDR5azU5NWcwdiJ9.x0uSqSWGXdoFKuHZC5Eo_Q',
+                      ),
+                      MarkerLayer(
+                        markers: [
+                          Marker(
+                            point: _currentLocation!,
+                            child: Container(
+                              height: 16,
+                              width: 16,
+                              decoration: BoxDecoration(
+                                color: Color(0xffB3FD14),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -216,5 +252,35 @@ class _HomepageState extends State<Homepage> {
         ),
       ),
     );
+  }
+}
+class LocationServices {
+  static Future<LatLng> getCurrentLocation() async {
+    Location location = Location();
+    bool serviceEnabled;
+    PermissionStatus permissionGranted;
+    LocationData locationData;
+
+    // Check if location services are enabled
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        throw Exception("Location services are disabled.");
+      }
+    }
+
+    // Check for location permissions
+    permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
+        throw Exception("Location permission not granted.");
+      }
+    }
+
+    // Get the current location
+    locationData = await location.getLocation();
+    return LatLng(locationData.latitude!, locationData.longitude!);
   }
 }
