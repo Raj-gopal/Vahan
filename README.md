@@ -1,16 +1,17 @@
-# vahan
 
-A new Flutter project.
 
-## Getting Started
+# Vahan Cab Booking App 🚖
 
-This project is a starting point for a Flutter application.
+Vahan is a seamless, user-friendly cab booking solution designed to simplify your transportation needs. Whether you're booking a ride or seeking instant support, Vahan ensures a smooth and efficient experience.
 
-A few resources to get you started if this is your first Flutter project:
+🛠️ Tech Stack
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Frontend: Flutter
+Backend: Firebase
+🌟 Key Features
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Real-Time Chatbot Support: Powered by Dialogflow, Vahan offers instant assistance to users, making the experience hassle-free and reliable.
+
+🚀 Upcoming Features
+
+Multi-Language Support: Catering to a diverse user base, enabling accessibility for users across different languages.
