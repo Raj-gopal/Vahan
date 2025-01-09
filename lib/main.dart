@@ -4,9 +4,10 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:vahan/authScreens/loginScreen.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Initialize Firebase
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: "AIzaSyBuXGyqYqpewYzRD32R5tEsjoytb_D0BPo",
@@ -16,6 +17,8 @@ void main() async{
       // storageBucket: "wealthwise-34466.appspot.com",
     ),
   );
+
+  // Run the app after Firebase initialization
   runApp(const MyApp());
 }
 
@@ -33,11 +36,11 @@ class MyApp extends StatelessWidget {
       ),
       home: Center(
         child: EasySplashScreen(
-          logo: Image.asset('assets/images/Vahan.png'),
+          logo: Image.asset('assets/images/Vahan.png'), // Your splash screen logo
           backgroundColor: Colors.black,
-          showLoader: false,
-          navigator: LoginScreen(),
-          durationInSeconds: 3,
+          showLoader: false, // Set to false if you don't want a loader
+          navigator: LoginScreen(), // Navigate to LoginScreen after splash
+          durationInSeconds: 3, // Duration for splash screen
         ),
       ),
     );

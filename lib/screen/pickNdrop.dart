@@ -89,149 +89,181 @@ class _SearchScreenState extends State<SearchScreen> {
       backgroundColor: Colors.black,
       body: Padding(
         padding: EdgeInsets.only(left: 16, right: 14, top: 80),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  height: 24,
-                  width: 24,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Color(0xffE1E1E1),
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: TextField(
-                    controller: startController,
-                    cursorColor: Color(0xffB3FD14),
-                    style: TextStyle(
-                      color: Color(0xff797979),
-                      fontSize: 20,
-                      fontFamily: 'Gelix',
-                    ),
-                    decoration: InputDecoration(
-                      hintText: 'Where from?',
-                      hintStyle: TextStyle(
-                        color: Color(0xff797979),
-                        fontSize: 20,
-                        fontFamily: 'Gelix',
-                      ),
-                      filled: true,
-                      fillColor: Color(0xff242426),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                    onChanged: (value) {
-                      isEditingStart = true;
-                      fetchLocations(value);
-                    },
-                    onTap: () {
-                      setState(() {
-                        isEditingStart = true;
-                        parsedResponses = [];
-                      });
-                    },
-                  ),
-                ),
-              ],
+        child: Stack(
+          children:[
+            Positioned(
+              top: MediaQuery.of(context).size.height*.043,
+              left: MediaQuery.of(context).size.width*.025,
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height*.06,
+                child: VerticalDivider(
+                  indent: 10,
+                  thickness: 2,
+                  width: 5,
+                  color: Color(0xff828283),
+                  endIndent: 10,
+                 ),
+              ),
             ),
-            SizedBox(height: 16),
-            Row(
+            // VerticalDivider(
+            //   color: Color(0xff828283),
+            //   thickness: 2,
+            // ),
+
+
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: 24,
-                  width: 24,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color: Color(0xffB3FD14),
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: TextField(
-                    controller: nextController,
-                    cursorColor: Color(0xffB3FD14),
-                    style: TextStyle(
-                      color: Color(0xff797979),
-                      fontSize: 20,
-                      fontFamily: 'Gelix',
-                    ),
-                    decoration: InputDecoration(
-                      hintText: 'Where next?',
-                      hintStyle: TextStyle(
-                        color: Color(0xff797979),
-                        fontSize: 20,
-                        fontFamily: 'Gelix',
-                      ),
-                      filled: true,
-                      fillColor: Color(0xff242426),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide.none,
+                Row(
+                  children: [
+                    Container(
+                      height: 24,
+                      width: 24,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color(0xffE1E1E1),
                       ),
                     ),
-                    onChanged: (value) {
-                      isEditingStart = false;
-                      fetchLocations(value);
-                    },
-                    onTap: () {
-                      setState(() {
-                        isEditingStart = false;
-                        parsedResponses = [];
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            Expanded(
-              child: ListView.builder(
-                itemCount: parsedResponses.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    children: [
-                      ListTile(
-                        onTap: () {
-                          handleSelection(parsedResponses[index]);
-                        },
-                        leading: const SizedBox(
-                          height: double.infinity,
-                          child: CircleAvatar(
-                            backgroundColor: Color(0xffB3FD14),
-                            child: Icon(Icons.location_on, color: Colors.white),
-                          ),
-                        ),
-                        title: Text(
-                          parsedResponses[index]['name'],
+                    SizedBox(width: 16),
+                    Expanded(
+                      child: SizedBox(
+                        height: 56,
+                        child: TextField(
+                          controller: startController,
+                          cursorColor: Color(0xffB3FD14),
                           style: TextStyle(
-                            color: Color(0xffE1E1E1),
+                            color: Color(0xff797979),
                             fontSize: 20,
                             fontFamily: 'Gelix',
                           ),
-                        ),
-                        subtitle: Text(
-                          parsedResponses[index]['address'],
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Color(0xff797979),
-                            fontSize: 18,
-                            fontFamily: 'Gelix',
+                          decoration: InputDecoration(
+                            hintText: 'Where from?',
+                            hintStyle: TextStyle(
+                              color: Color(0xff797979),
+                              fontSize: 20,
+                              fontFamily: 'Gelix',
+                            ),
+                            filled: true,
+                            fillColor: Color(0xff242426),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(32.0),
+                              borderSide: BorderSide.none,
+                            ),
                           ),
+                          onChanged: (value) {
+                            isEditingStart = true;
+                            fetchLocations(value);
+                          },
+                          onTap: () {
+                            setState(() {
+                              isEditingStart = true;
+                              parsedResponses = [];
+                            });
+                          },
                         ),
                       ),
-                      const Divider(color: Color(0xff242426)),
-                    ],
-                  );
-                },
-              ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16),
+                Row(
+                  children: [
+                    Container(
+                      height: 24,
+                      width: 24,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          color: Color(0xffB3FD14),
+                          borderRadius: BorderRadius.circular(4)
+                      ),
+                    ),
+                    SizedBox(width: 16),
+                    Expanded(
+                      child: SizedBox(
+                        height: 56,
+                        child: TextField(
+                          controller: nextController,
+                          cursorColor: Color(0xffB3FD14),
+                          style: TextStyle(
+                            color: Color(0xff797979),
+                            fontSize: 20,
+                            fontFamily: 'Gelix',
+                          ),
+                          decoration: InputDecoration(
+                            hintText: 'Where next?',
+                            hintStyle: TextStyle(
+                              color: Color(0xff797979),
+                              fontSize: 20,
+                              fontFamily: 'Gelix',
+                            ),
+                            filled: true,
+                            fillColor: Color(0xff242426),
+                            border: OutlineInputBorder(
+
+                              borderRadius: BorderRadius.circular(32.0),
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                          onChanged: (value) {
+                            isEditingStart = false;
+                            fetchLocations(value);
+                          },
+                          onTap: () {
+                            setState(() {
+                              isEditingStart = false;
+                              parsedResponses = [];
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                //SizedBox(height: 8),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: parsedResponses.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        children: [
+                          ListTile(
+                            onTap: () {
+                              handleSelection(parsedResponses[index]);
+                            },
+                            leading: const SizedBox(
+                              height: double.infinity,
+                              child: CircleAvatar(
+                                backgroundColor: Color(0xffB3FD14),
+                                child: Icon(Icons.location_on, color: Colors.white),
+                              ),
+                            ),
+                            title: Text(
+                              parsedResponses[index]['name'],
+                              style: TextStyle(
+                                color: Color(0xffE1E1E1),
+                                fontSize: 20,
+                                fontFamily: 'Gelix',
+                              ),
+                            ),
+                            subtitle: Text(
+                              parsedResponses[index]['address'],
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Color(0xff797979),
+                                fontSize: 18,
+                                fontFamily: 'Gelix',
+                              ),
+                            ),
+                          ),
+                          const Divider(color: Color(0xff242426)),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
-          ],
+          ]
         ),
       ),
     );

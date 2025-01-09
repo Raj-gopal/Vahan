@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';// This import is not used in the current code
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
+import 'package:vahan/screen/chatbot.dart';
 import 'package:vahan/screen/pickNdrop.dart';
 import 'package:flutter_map/flutter_map.dart';
 
@@ -49,7 +50,8 @@ class _HomepageState extends State<Homepage> {
             ),
             CircleAvatar(
               radius: 28,
-              backgroundColor: Colors.yellow,
+              backgroundImage: AssetImage('assets/images/profile.jpg'),
+              //backgroundColor: Colors.yellow,
             ),
           ],
         ),
@@ -60,66 +62,74 @@ class _HomepageState extends State<Homepage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: MediaQuery.of(context).size.height * .075,
-                decoration: BoxDecoration(
-                  color: Color(0xff242426),
-                  borderRadius: BorderRadius.circular(64),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 24),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.search,
-                        size: 24,
-                        color: Color(0xff797979),
-                      ),
-                      SizedBox(width: 16),
-                      Text(
-                        'Where to?',
-                        style: TextStyle(
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SearchScreen()),
+                  );
+                },
+                child: Container(
+                  height: MediaQuery.of(context).size.height * .075,
+                  decoration: BoxDecoration(
+                    color: Color(0xff242426),
+                    borderRadius: BorderRadius.circular(64),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 24),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.search,
+                          size: 24,
                           color: Color(0xff797979),
-                          fontSize: 20,
-                          fontFamily: 'Gelix',
                         ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * .16,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 4, bottom: 5),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => SearchScreen()),
-                            );
-                          },
-                          child: Container(
-                            height: MediaQuery.of(context).size.height,
-                            width: MediaQuery.of(context).size.width * .37,
-                            decoration: BoxDecoration(
-                              color: Color(0xffB3FD14),
-                              borderRadius: BorderRadius.circular(32),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Search',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontFamily: 'Gelix',
+                        SizedBox(width: 16),
+                        Text(
+                          'Where to?',
+                          style: TextStyle(
+                            color: Color(0xff797979),
+                            fontSize: 20,
+                            fontFamily: 'Gelix',
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * .16,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 4, bottom: 5),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => SearchScreen()),
+                              );
+                            },
+                            child: Container(
+                              height: MediaQuery.of(context).size.height,
+                              width: MediaQuery.of(context).size.width * .37,
+                              decoration: BoxDecoration(
+                                color: Color(0xffB3FD14),
+                                borderRadius: BorderRadius.circular(32),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Search',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontFamily: 'Gelix',
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -140,9 +150,10 @@ class _HomepageState extends State<Homepage> {
                 child: Container(
                   height: MediaQuery.of(context).size.height * .4,
                   width: MediaQuery.of(context).size.width,
-                  child: FlutterMap(
+                  child: _currentLocation != null
+                      ? FlutterMap(
                     options: MapOptions(
-                      center:_currentLocation,
+                      center: _currentLocation,
                       zoom: 12,
                     ),
                     children: [
@@ -157,17 +168,37 @@ class _HomepageState extends State<Homepage> {
                               height: 16,
                               width: 16,
                               decoration: BoxDecoration(
-                                color: Color(0xffB3FD14),
+                                color: Color(0xffB3FD14).withOpacity(.2),
                                 shape: BoxShape.circle,
+                              ),
+                              child: Stack(
+                                children: [
+                                  Center(
+                                    child: Container(
+                                      height: 16,
+                                      width: 16,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xffB3FD14),
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                         ],
                       ),
                     ],
+                  )
+                      : Center(
+                    child: CircularProgressIndicator(
+                      color: Color(0xffB3FD14),
+                    ),
                   ),
                 ),
               ),
+
               SizedBox(height: MediaQuery.of(context).size.height * .02),
               Text(
                 'More ways to use Vahan',
@@ -231,24 +262,29 @@ class _HomepageState extends State<Homepage> {
           ),
         ),
       ),
-      floatingActionButton: Container(
-        height: MediaQuery.of(context).size.height * .1,
-        width: MediaQuery.of(context).size.width * .2,
-        decoration: BoxDecoration(
-          color: Color(0xff242426),
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(0, 0),
-              blurRadius: 5,
-              color: Colors.black.withOpacity(0.3),
-            ),
-          ],
-        ),
-        child: Image(
-          width: 40,
-          height: 40,
-          image: Svg('assets/svg/Chat.svg'),
+      floatingActionButton: GestureDetector(
+        onTap: (){
+          Navigator.push(context,MaterialPageRoute(builder: (context) =>Chatbot()));
+        },
+        child: Container(
+          height: MediaQuery.of(context).size.height * .1,
+          width: MediaQuery.of(context).size.width * .2,
+          decoration: BoxDecoration(
+            color: Color(0xff242426),
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, 0),
+                blurRadius: 5,
+                color: Colors.black.withOpacity(0.3),
+              ),
+            ],
+          ),
+          child: Image(
+            width: 40,
+            height: 40,
+            image: Svg('assets/svg/Chat.svg'),
+          ),
         ),
       ),
     );

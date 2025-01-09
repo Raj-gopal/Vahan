@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:vahan/authScreens/loginScreen.dart';
+import 'package:vahan/driver/screen/driverhomescreen.dart';
 import 'package:vahan/screen/homepage.dart';
 import 'package:vahan/services/auth.dart';
 import 'package:vahan/utils/style.dart';
@@ -52,7 +53,7 @@ class _DriverRegistrationScreenState extends State<DriverRegistrationScreen> {
           isLoading = false;
         });
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const Homepage()),
+          MaterialPageRoute(builder: (context) => const DriverHomeScreen()),
               (Route<dynamic> route) => false,
         );
 
